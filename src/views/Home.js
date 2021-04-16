@@ -1,11 +1,10 @@
 import { Component } from 'react';
 import axios from 'axios';
 
-axios.baseUrl = 'https://api.themoviedb.org/3';
+//axios.baseUrl = 'https://api.themoviedb.org/3';
 //axios.defaults.headers.common['Authentication-Callback'] = 'Bearer 7ab96e660683d86731a9837125121184';
 
 const key = '7ab96e660683d86731a9837125121184';
-
 
 class Home extends Component {
   state = {
