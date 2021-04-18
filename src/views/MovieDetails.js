@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import axios from 'axios';
 import { Route, NavLink, Switch } from 'react-router-dom';
+import moviesAPI from '../services/moviesAPI';
 
 import MovieReview from '../components/MovieReview';
 import MovieCast from '../components/MovieCast';
@@ -11,7 +11,7 @@ import MovieCast from '../components/MovieCast';
 // детальное описание
 // //https://api.themoviedb.org/3/movie/157336?api_key={api_key}
 
-const key = '7ab96e660683d86731a9837125121184';
+
 const imagesUrl = 'https://image.tmdb.org/t/p/w500';
 
 class MovieDetails extends Component {
@@ -24,31 +24,28 @@ class MovieDetails extends Component {
     poster_path: '/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg',
   };
   async componentDidMount() {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}?api_key=${key}`,
-    );
-
-    const {
-      title,
-      release_date,
-      vote_average,
-      overview,
-      genres,
-      poster_path,
-    } = response.data;
-
-    this.setState({
-      title,
-      release_date,
-      vote_average,
-      overview,
-      genres,
-      poster_path,
-    });
-
+    const filmID = this.props.match.params.movieId;
+    moviesAPI
+      .fetchDetails(filmID)
+      .then(
+        ({
+          title,
+          release_date,
+          vote_average,
+          overview,
+          genres,
+          poster_path,
+        }) =>
+          this.setState({
+            title,
+            release_date,
+            vote_average,
+            overview,
+            genres,
+            poster_path,
+          }),
+      );
   }
-
-
 
   render() {
     const { match } = this.props;
@@ -66,8 +63,7 @@ class MovieDetails extends Component {
       <div>
         <button onClick={this.props.history.goBack}>Go Back</button>
         <h1>
-             
-             {title} {releaseYear && <span>({releaseYear})</span>}
+          {title} {releaseYear && <span>({releaseYear})</span>}
         </h1>
         <img src={`${imagesUrl}${poster_path}`} alt={title} height="100px" />
         <p>User Score: {userScore}%</p>
@@ -83,8 +79,8 @@ class MovieDetails extends Component {
         <NavLink to={`${match.url}/cast`}> Cast</NavLink>
         <NavLink to={`${match.url}/reviews`}> Reviews </NavLink>
         <Switch>
-          <Route  path={`${match.path}/cast`} component={MovieCast} />
-          <Route  path={`${match.path}/reviews`} component={MovieReview} />
+          <Route path={`${match.path}/cast`} component={MovieCast} />
+          <Route path={`${match.path}/reviews`} component={MovieReview} />
         </Switch>
       </div>
     );

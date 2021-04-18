@@ -1,12 +1,6 @@
 import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-
-import axios from 'axios';
-
-//https://api.themoviedb.org/3/search/movie?query=cat&api_key=7ab96e660683d86731a9837125121184
-
-axios.baseUrl = 'https://api.themoviedb.org/3';
-const key = '7ab96e660683d86731a9837125121184';
+import moviesAPI from '../services/moviesAPI';
 
 class Movies extends Component {
   state = {
@@ -42,20 +36,18 @@ class Movies extends Component {
   };
   handleFormSubmit = e => {
     e.preventDefault();
-    this.getMovies(this.state.query);
+    this.getMovies();
     this.resetForm();
   };
 
-  async getMovies(query) {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${key}`,
+  getMovies = () => {
+    moviesAPI.fetchMoviesSearch(this.state.query).then(results =>
+      this.setState({
+        movies: [...results],
+      }),
     );
-    // console.log(response.data.results);
+  };
 
-    this.setState({
-      movies: [...response.data.results],
-    });
-  }
   resetForm = () => {
     this.setState({
       query: '',

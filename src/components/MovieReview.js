@@ -1,11 +1,5 @@
 import { Component } from 'react';
-
-import axios from 'axios';
-
-const key = '7ab96e660683d86731a9837125121184';
-
-// отзывы
-// https://api.themoviedb.org/3/movie/157336/reviews?api_key=7ab96e660683d86731a9837125121184
+import moviesAPI from '../services/moviesAPI';
 
 class MovieReview extends Component {
   state = {
@@ -13,21 +7,19 @@ class MovieReview extends Component {
   };
 
   async componentDidMount() {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}/reviews?api_key=${key}`,
+    const filmID = this.props.match.params.movieId;
+    moviesAPI.fetchMovieReview(filmID).then(results =>
+      this.setState({
+        reviews: results,
+      }),
     );
-
-    this.setState({
-      reviews: response.data.results,
-    });
   }
 
   render() {
     const { reviews } = this.state;
-   
+
     return (
       <div>
-      
         <ul>
           {reviews &&
             reviews.map(review => (
@@ -36,7 +28,7 @@ class MovieReview extends Component {
                 <p>{review.content}</p>
               </li>
             ))}
-            {reviews.length === 0 && "There are no reviews"}
+          {reviews.length === 0 && 'There are no reviews'}
         </ul>
       </div>
     );
