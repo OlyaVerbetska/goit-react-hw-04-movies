@@ -1,11 +1,16 @@
 import { Component } from 'react';
 import axios from 'axios';
+import { Route, NavLink, Switch } from 'react-router-dom';
 
-//https://api.themoviedb.org/3/movie/353390?api_key=7ab96e660683d86731a9837125121184
+import MovieReview from '../components/MovieReview';
+import MovieCast from '../components/MovieCast';
 
-//https://api.themoviedb.org/3/genre/movie/list?api_key=7ab96e660683d86731a9837125121184
+// список ид жанров
+// //https://api.themoviedb.org/3/genre/movie/list?api_key=7ab96e660683d86731a9837125121184
 
-//https://api.themoviedb.org/3/movie/157336?api_key={api_key}
+// детальное описание
+// //https://api.themoviedb.org/3/movie/157336?api_key={api_key}
+
 const key = '7ab96e660683d86731a9837125121184';
 const imagesUrl = 'https://image.tmdb.org/t/p/w500';
 
@@ -16,7 +21,7 @@ class MovieDetails extends Component {
     vote_average: null,
     overview: null,
     genres: [],
-    poster_path: null,
+    poster_path: '/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg',
   };
   async componentDidMount() {
     const response = await axios.get(
@@ -42,7 +47,10 @@ class MovieDetails extends Component {
     });
   }
 
+
+
   render() {
+    const { match } = this.props;
     const {
       title,
       release_date,
@@ -55,19 +63,31 @@ class MovieDetails extends Component {
     const releaseYear = release_date.slice(0, 4);
     return (
       <div>
+        <button onClick={this.props.history.goBack}>Go Back</button>
         <h1>
-          {title} ({releaseYear})
+             
+             {title} {releaseYear && <span>({releaseYear})</span>}
         </h1>
-        <img src={`${imagesUrl}${poster_path}`} alt={title} height="300px" />
+        <img src={`${imagesUrl}${poster_path}`} alt={title} height="100px" />
         <p>User Score: {userScore}%</p>
         <h2>Overview</h2>
         <p>{overview}</p>
         <h2>Genres</h2>
-        {genres.map(genre => (
-          <span>{genre.name}</span>
-        ))}
+        <p>
+          {genres.map(genre => (
+            <span key={genre.name}>{genre.name}</span>
+          ))}
+        </p>
+
+        <NavLink to={`${match.url}/cast`}> Cast</NavLink>
+        <NavLink to={`${match.url}/reviews`}> Reviews </NavLink>
+        <Switch>
+          <Route path={`${match.path}/cast`} component={MovieCast} />
+          <Route path={`${match.path}/reviews`} component={MovieReview} />
+        </Switch>
       </div>
     );
   }
 }
+
 export default MovieDetails;

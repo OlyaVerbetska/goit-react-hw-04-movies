@@ -14,6 +14,29 @@ class Movies extends Component {
     movies: [],
   };
 
+
+  componentDidMount() {
+    const mySearchMovies = localStorage.getItem('My Movies');
+const parsedMyMovies = JSON.parse(mySearchMovies);
+
+if (mySearchMovies) {
+  this.setState({
+    movies: parsedMyMovies,
+  });
+} else {
+  this.setState({
+    movies: [],
+  });
+}
+}
+componentDidUpdate(prevProps, prevState) {
+if (prevState.movies !== this.state.movies) {
+  localStorage.setItem('My Movies', JSON.stringify(this.state.movies));
+}
+}
+
+
+
   changeInput = e => {
     this.setState({ query: e.currentTarget.value });
   };
@@ -57,7 +80,7 @@ class Movies extends Component {
         <ul>
           {movies.length > 0
             ? movies.map(movie => <li key={movie.id}>
-             <NavLink to={`${this.props.match.url}/${movie.id}`}> {movie.title} </NavLink>
+             <NavLink to={`${this.props.match.url}${movie.id}`}> {movie.title} </NavLink>
               </li>)
             : 'No films matching your request'}
         </ul>
