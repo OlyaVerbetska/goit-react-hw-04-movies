@@ -14,28 +14,28 @@ class Movies extends Component {
     movies: [],
   };
 
+  //localStorage
 
   componentDidMount() {
     const mySearchMovies = localStorage.getItem('My Movies');
-const parsedMyMovies = JSON.parse(mySearchMovies);
+    const parsedMyMovies = JSON.parse(mySearchMovies);
 
-if (mySearchMovies) {
-  this.setState({
-    movies: parsedMyMovies,
-  });
-} else {
-  this.setState({
-    movies: [],
-  });
-}
-}
-componentDidUpdate(prevProps, prevState) {
-if (prevState.movies !== this.state.movies) {
-  localStorage.setItem('My Movies', JSON.stringify(this.state.movies));
-}
-}
+    if (mySearchMovies) {
+      this.setState({
+        movies: parsedMyMovies,
+      });
+    } else {
+      this.setState({
+        movies: [],
+      });
+    }
+  }
 
-
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.movies !== this.state.movies) {
+      localStorage.setItem('My Movies', JSON.stringify(this.state.movies));
+    }
+  }
 
   changeInput = e => {
     this.setState({ query: e.currentTarget.value });
@@ -50,8 +50,8 @@ if (prevState.movies !== this.state.movies) {
     const response = await axios.get(
       `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${key}`,
     );
-   // console.log(response.data.results);
-    
+    // console.log(response.data.results);
+
     this.setState({
       movies: [...response.data.results],
     });
@@ -79,9 +79,14 @@ if (prevState.movies !== this.state.movies) {
         </form>
         <ul>
           {movies.length > 0
-            ? movies.map(movie => <li key={movie.id}>
-             <NavLink to={`${this.props.match.url}${movie.id}`}> {movie.title} </NavLink>
-              </li>)
+            ? movies.map(movie => (
+                <li key={movie.id}>
+                  <NavLink to={`${this.props.match.url}${movie.id}`}>
+                    {' '}
+                    {movie.title}{' '}
+                  </NavLink>
+                </li>
+              ))
             : 'No films matching your request'}
         </ul>
       </div>

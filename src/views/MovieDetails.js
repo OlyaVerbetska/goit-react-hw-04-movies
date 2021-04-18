@@ -45,6 +45,7 @@ class MovieDetails extends Component {
       genres,
       poster_path,
     });
+
   }
 
 
@@ -82,8 +83,8 @@ class MovieDetails extends Component {
         <NavLink to={`${match.url}/cast`}> Cast</NavLink>
         <NavLink to={`${match.url}/reviews`}> Reviews </NavLink>
         <Switch>
-          <Route path={`${match.path}/cast`} component={MovieCast} />
-          <Route path={`${match.path}/reviews`} component={MovieReview} />
+          <Route  path={`${match.path}/cast`} component={MovieCast} />
+          <Route  path={`${match.path}/reviews`} component={MovieReview} />
         </Switch>
       </div>
     );

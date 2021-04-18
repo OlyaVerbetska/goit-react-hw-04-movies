@@ -17,7 +17,7 @@ class MovieCast extends Component {
         const response = await axios.get(
           `https://api.themoviedb.org/3/movie/${this.props.match.params.movieId}/credits?api_key=${key}`,
         );
-        console.log(response.data.cast);
+        //console.log(response.data.cast);
     
         this.setState({
             casts: response.data.cast,
