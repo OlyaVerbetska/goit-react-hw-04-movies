@@ -1,5 +1,9 @@
 import { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import axios from 'axios';
+
+//https://api.themoviedb.org/3/search/movie?query=cat&api_key=7ab96e660683d86731a9837125121184
 
 axios.baseUrl = 'https://api.themoviedb.org/3';
 const key = '7ab96e660683d86731a9837125121184';
@@ -15,7 +19,6 @@ class Movies extends Component {
   };
   handleFormSubmit = e => {
     e.preventDefault();
-    console.log(this.state.query);
     this.getMovies(this.state.query);
     this.resetForm();
   };
@@ -24,6 +27,8 @@ class Movies extends Component {
     const response = await axios.get(
       `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${key}`,
     );
+   // console.log(response.data.results);
+    
     this.setState({
       movies: [...response.data.results],
     });
@@ -51,7 +56,9 @@ class Movies extends Component {
         </form>
         <ul>
           {movies.length > 0
-            ? movies.map(movie => <li key={movie.id}>{movie.title}</li>)
+            ? movies.map(movie => <li key={movie.id}>
+             <NavLink to={`${this.props.match.url}/${movie.id}`}> {movie.title} </NavLink>
+              </li>)
             : 'No films matching your request'}
         </ul>
       </div>
