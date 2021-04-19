@@ -4,6 +4,7 @@ import moviesAPI from '../services/moviesAPI';
 
 import MovieReview from '../components/MovieReview';
 import MovieCast from '../components/MovieCast';
+import routes from '../routes'
 
 // список ид жанров
 // //https://api.themoviedb.org/3/genre/movie/list?api_key=7ab96e660683d86731a9837125121184
@@ -76,11 +77,11 @@ class MovieDetails extends Component {
           ))}
         </p>
 
-        <NavLink to={`${match.url}/cast`}> Cast</NavLink>
-        <NavLink to={`${match.url}/reviews`}> Reviews </NavLink>
+        <NavLink to={`${match.url}${routes.cast}`}> Cast</NavLink>
+        <NavLink to={`${match.url}${routes.reviews}`}> Reviews </NavLink>
         <Switch>
-          <Route path={`${match.path}/cast`} component={MovieCast} />
-          <Route path={`${match.path}/reviews`} component={MovieReview} />
+          <Route path={`${match.path}${routes.cast}`} component={MovieCast} />
+          <Route path={`${match.path}${routes.reviews}`} component={MovieReview} />
         </Switch>
       </div>
     );

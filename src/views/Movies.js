@@ -1,10 +1,11 @@
 import { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import moviesAPI from '../services/moviesAPI';
+import SearchForm from '../components/SearchForm';
+import MovieList from '../components/MovieList';
 
 class Movies extends Component {
   state = {
-    query: '',
+    
     movies: [],
   };
 
@@ -31,27 +32,16 @@ class Movies extends Component {
     }
   }
 
-  changeInput = e => {
-    this.setState({ query: e.currentTarget.value });
-  };
-  handleFormSubmit = e => {
-    e.preventDefault();
-    this.getMovies();
-    this.resetForm();
+  handleFormSubmit = query => {
+    this.getMovies(query);
   };
 
-  getMovies = () => {
-    moviesAPI.fetchMoviesSearch(this.state.query).then(results =>
+  getMovies = query => {
+    moviesAPI.fetchMoviesSearch(query).then(results =>
       this.setState({
         movies: [...results],
       }),
     );
-  };
-
-  resetForm = () => {
-    this.setState({
-      query: '',
-    });
   };
 
   render() {
@@ -59,28 +49,8 @@ class Movies extends Component {
     return (
       <div>
         <h1>Movies Page</h1>
-        <form>
-          <input
-            type="text"
-            onChange={this.changeInput}
-            value={this.state.query}
-          ></input>
-          <button type="submit" onClick={this.handleFormSubmit}>
-            Search
-          </button>
-        </form>
-        <ul>
-          {movies.length > 0
-            ? movies.map(movie => (
-                <li key={movie.id}>
-                  <NavLink to={`${this.props.match.url}${movie.id}`}>
-                    {' '}
-                    {movie.title}{' '}
-                  </NavLink>
-                </li>
-              ))
-            : 'No films matching your request'}
-        </ul>
+        <SearchForm onSubmit={this.handleFormSubmit} />
+        <MovieList movies={movies} />
       </div>
     );
   }

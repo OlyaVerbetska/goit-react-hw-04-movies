@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import moviesAPI from '../services/moviesAPI';
+import MovieList from '../components/MovieList'
 
 class Home extends Component {
   state = {
@@ -20,17 +20,7 @@ class Home extends Component {
     return (
       <div>
         <h1>Home Page</h1>
-        <ul>
-          {trending.map(trend => (
-            <li key={trend.id}>
-              {/* // change next row */}
-              <NavLink to={`movies/${trend.id}`}>
-                {' '}
-                {trend.title === undefined ? trend.name : trend.title}{' '}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+       <MovieList movies = {trending}/>
       </div>
     );
   }

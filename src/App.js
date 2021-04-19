@@ -1,28 +1,28 @@
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import{Suspence, lazy} from 'react'
 
 import Home from './views/Home';
 import Movies from './views/Movies';
-import MovieDetails from './views/MovieDetails'
-import NotFoundPage from './views/NotFound'
+import MovieDetails from './views/MovieDetails';
+import NotFoundPage from './views/NotFound';
+import AppBar from './components/AppBar';
 
 import './styles.css';
+import routes from './routes';
 
 
 
 const App = () => (
   <>
-  <ul>
-    <NavLink to ="/">Home</NavLink>
-    <NavLink to ="/movies/">Movies</NavLink>
-    </ul>
+  <AppBar/>
   <Switch>
-  <Route exact path = "/" component = {Home}  />
-  <Route path = "/movies/:movieId" component = {MovieDetails}  />
-  <Route path = "/movies" component = {Movies}  />
+  <Route exact path = {routes.home} component = {Home}  />
+  <Route path = {routes.movieDetails} component = {MovieDetails}  />
+  <Route path = {routes.movies} component = {Movies}  />
   <Route exact path = '/goit-react-hw-04-movies' component = {Home}/>
   <Route component = {NotFoundPage}/>
   </Switch>
-  </>
+ </>
 )
 
 export default App;
