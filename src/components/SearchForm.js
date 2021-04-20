@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import '../styles.css'
 
 class SearchForm extends Component {
   state = {
@@ -22,13 +23,14 @@ class SearchForm extends Component {
 
   render() {
     return (
-      <form>
-        <input
+      <form className = "searchForm">
+        <input className = "searchForm__input"
           type="text"
           onChange={this.changeInput}
           value={this.state.query}
+          placeholder="Search movies"
         ></input>
-        <button type="submit" onClick={this.formSubmit}>
+        <button className = "searchForm__button"type="submit" onClick={this.formSubmit}>
           Search
         </button>
       </form>

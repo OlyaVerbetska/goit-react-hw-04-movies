@@ -71,21 +71,28 @@ class MovieDetails extends Component {
     const userScore = vote_average * 10;
     const releaseYear = release_date.slice(0, 4);
     return (
-      <div>
-        <button type ="button" onClick={this.handleGoBack}>Go Back</button>
-        <h1>
+      <div className = "movieDetails">
+        <button type ="button" onClick={this.handleGoBack} className = "movieDetails__button">Go Back</button>
+        <h1 className = "title">
           {title} {releaseYear && <span>({releaseYear})</span>}
         </h1>
-        {poster_path && <img src={`${imagesUrl}${poster_path}`} alt={title} height="100px" /> }
+        <div className = "movieDetails__description">
+        <div className = "movieDetails__description--img">
+        {poster_path && <img src={`${imagesUrl}${poster_path}`} alt={title} height="300px" /> }
+        </div>
+        <div className = "movieDetails__description--text">
         <p>User Score: {userScore}%</p>
-        <h2>Overview</h2>
+        <h2 className = "subtitle">Overview</h2>
         <p>{overview}</p>
-        <h2>Genres</h2>
+        <h2 className = "subtitle">Genres</h2>
         <p>
           {genres.map(genre => (
-            <span key={genre.name}>{genre.name}</span>
+            <span key={genre.name} className = "movieDetails__description--text-genres">{genre.name}</span>
           ))}
         </p>
+        </div>
+        </div>
+        <h2 className = "subtitle">Additional information</h2>
       
         <NavLink to={`${match.url}${routes.cast}`}> Cast</NavLink>
         <NavLink to={`${match.url}${routes.reviews}`}> Reviews </NavLink>

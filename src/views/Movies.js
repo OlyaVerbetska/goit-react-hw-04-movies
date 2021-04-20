@@ -48,7 +48,6 @@ class Movies extends Component {
     const { movies } = this.state;
     return (
       <div>
-        <h1>Movies Page</h1>
         <SearchForm onSubmit={this.handleFormSubmit} />
         <MovieList movies={movies} />
       </div>

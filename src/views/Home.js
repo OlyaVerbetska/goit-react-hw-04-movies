@@ -13,13 +13,14 @@ class Home extends Component {
         trending: [...results],
       }),
     );
+    localStorage.clear();
   }
 
   render() {
     const { trending } = this.state;
     return (
       <div>
-        <h1>Home Page</h1>
+        <h1 className = "title">Trending today</h1>
        <MovieList movies = {trending}/>
       </div>
     );

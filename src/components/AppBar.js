@@ -1,9 +1,10 @@
 
 import Navigation from './Navigation';
+import '../styles.css'
 
 
 const AppBar = () => (
-    <header>
+    <header className = "AppBar">
    <Navigation/>
     </header>
 )
