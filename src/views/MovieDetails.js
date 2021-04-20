@@ -1,16 +1,16 @@
 import { Component } from 'react';
 import { Route, NavLink, Switch } from 'react-router-dom';
-import moviesAPI from '../services/moviesAPI';
+import{Suspense, lazy} from 'react'
 
-import MovieReview from '../components/MovieReview';
-import MovieCast from '../components/MovieCast';
+import moviesAPI from '../services/moviesAPI';
+//import imagePlacer from '../ImagePlacer.jpg'
+
+// import MovieReview from '../components/MovieReview';
+// import MovieCast from '../components/MovieCast';
 import routes from '../routes'
 
-// список ид жанров
-// //https://api.themoviedb.org/3/genre/movie/list?api_key=7ab96e660683d86731a9837125121184
-
-// детальное описание
-// //https://api.themoviedb.org/3/movie/157336?api_key={api_key}
+const reviewComponent = lazy(()=>import('../components/MovieReview' /*webpackChunkName: "movie-review-component" */ ));
+const castComponent = lazy(()=>import('../components/MovieCast' /*webpackChunkName: "movie-cast-component" */ ));
 
 
 const imagesUrl = 'https://image.tmdb.org/t/p/w500';
@@ -22,7 +22,7 @@ class MovieDetails extends Component {
     vote_average: null,
     overview: null,
     genres: [],
-    poster_path: '/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg',
+    poster_path: null,
   };
   async componentDidMount() {
     const filmID = this.props.match.params.movieId;
@@ -47,9 +47,19 @@ class MovieDetails extends Component {
           }),
       );
   }
+  handleGoBack = () =>{
+    const {  location, history } = this.props;
+    if(location.state && location.state.from) {
+      return history.push(location.state.from);
+    }
+    history.push("/")
+    
+  }
 
   render() {
-    const { match } = this.props;
+    const { match} = this.props;
+
+  
     const {
       title,
       release_date,
@@ -62,11 +72,11 @@ class MovieDetails extends Component {
     const releaseYear = release_date.slice(0, 4);
     return (
       <div>
-        <button onClick={this.props.history.goBack}>Go Back</button>
+        <button type ="button" onClick={this.handleGoBack}>Go Back</button>
         <h1>
           {title} {releaseYear && <span>({releaseYear})</span>}
         </h1>
-        <img src={`${imagesUrl}${poster_path}`} alt={title} height="100px" />
+        {poster_path && <img src={`${imagesUrl}${poster_path}`} alt={title} height="100px" /> }
         <p>User Score: {userScore}%</p>
         <h2>Overview</h2>
         <p>{overview}</p>
@@ -76,16 +86,22 @@ class MovieDetails extends Component {
             <span key={genre.name}>{genre.name}</span>
           ))}
         </p>
-
+      
         <NavLink to={`${match.url}${routes.cast}`}> Cast</NavLink>
         <NavLink to={`${match.url}${routes.reviews}`}> Reviews </NavLink>
+        <Suspense fallback= {<h2>Loading...</h2>}>
         <Switch>
-          <Route path={`${match.path}${routes.cast}`} component={MovieCast} />
-          <Route path={`${match.path}${routes.reviews}`} component={MovieReview} />
+          <Route path={`${match.path}${routes.cast}`} component={castComponent}  onClick={this.handleGoBack} />
+          <Route path={`${match.path}${routes.reviews}`} component={reviewComponent}  onClick={this.handleGoBack} />
         </Switch>
+        </Suspense>
       </div>
     );
   }
 }
 
+
 export default MovieDetails;
+
+// Почему нельзя так??
+/* <button onClick={this.props.history.goBack}>Go Back</button> */

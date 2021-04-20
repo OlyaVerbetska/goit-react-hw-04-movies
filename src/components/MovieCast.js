@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import {  withRouter } from 'react-router-dom';
 import moviesAPI from '../services/moviesAPI';
 
 const imagesUrl = 'https://image.tmdb.org/t/p/w500';
@@ -44,4 +45,4 @@ class MovieCast extends Component {
   }
 }
 
-export default MovieCast;
+export default withRouter(MovieCast);
