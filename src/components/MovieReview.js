@@ -20,12 +20,12 @@ class MovieReview extends Component {
 
     return (
       <div>
-        <ul>
+        <ul className = "movieReviews--list">
           {reviews &&
             reviews.map(review => (
               <li key={review.id}>
-                <p>Author:{review.author}</p>
-                <p>{review.content}</p>
+                <p className = "movieReviews--list--name">Author:    {review.author}</p>
+                <p className = "movieReviews--list--text">{review.content}</p>
               </li>
             ))}
           {reviews.length === 0 && 'There are no reviews'}

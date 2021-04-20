@@ -78,7 +78,7 @@ class MovieDetails extends Component {
         </h1>
         <div className = "movieDetails__description">
         <div className = "movieDetails__description--img">
-        {poster_path && <img src={`${imagesUrl}${poster_path}`} alt={title} height="300px" /> }
+        {poster_path && <img src={`${imagesUrl}${poster_path}`} alt={title}  height = "400px"/> }
         </div>
         <div className = "movieDetails__description--text">
         <p>User Score: {userScore}%</p>
@@ -94,8 +94,8 @@ class MovieDetails extends Component {
         </div>
         <h2 className = "subtitle">Additional information</h2>
       
-        <NavLink to={`${match.url}${routes.cast}`}> Cast</NavLink>
-        <NavLink to={`${match.url}${routes.reviews}`}> Reviews </NavLink>
+        <NavLink to={`${match.url}${routes.cast}`} className="movieDetails__additional" activeClassName="movieDetails__additional--active"> Cast</NavLink>
+        <NavLink to={`${match.url}${routes.reviews}`} className="movieDetails__additional" activeClassName="movieDetails__additional--active"> Reviews </NavLink>
         <Suspense fallback= {<h2>Loading...</h2>}>
         <Switch>
           <Route path={`${match.path}${routes.cast}`} component={castComponent}  onClick={this.handleGoBack} />

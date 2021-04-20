@@ -1,6 +1,8 @@
 import { Component } from 'react';
-import {  withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import moviesAPI from '../services/moviesAPI';
+import imagePlacer from '../ImagePlacer.jpg';
+import '../styles.css';
 
 const imagesUrl = 'https://image.tmdb.org/t/p/w500';
 
@@ -23,20 +25,31 @@ class MovieCast extends Component {
     const { casts } = this.state;
     return (
       <div>
-        <ul>
+        <ul className="movieCast">
           {casts &&
             casts.map(cast => (
-              <li key={cast.cast_id}>
+              <li className="movieCast--item" key={cast.cast_id}>
                 {cast.profile_path && (
                   <img
                     src={`${imagesUrl}${cast.profile_path}`}
                     alt={cast.name}
-                    height="100px"
+                    className="movieCast-image"
                   />
                 )}
-                <p>{cast.name}</p>
+                {cast.profile_path === null && (
+                  <img
+                    src={imagePlacer}
+                    className="movieCast-image"
+                    alt={cast.name}
+                   
+                  />
+                )}
 
-                <p>Character: {cast.character}</p>
+                <p className="movieCast--item--name">{cast.name}</p>
+
+                <p>
+                  Character:<br/><span> {cast.character}</span>
+                </p>
               </li>
             ))}
         </ul>
@@ -44,5 +57,14 @@ class MovieCast extends Component {
     );
   }
 }
+// MovieCast.defaultProps = {
+//   avatar: imagePlacer,
+// };
+
+// MovieCast.propTypes = {
+//   avatar: PropTypes.string,
+//   name: PropTypes.string.isRequired,
+//   status: PropTypes.bool.isRequired,
+// };
 
 export default withRouter(MovieCast);
