@@ -1,0 +1,38 @@
+
+.searchForm {
+    outline:red;
+    margin-top: 15px;
+  }
+  
+  .searchForm__input {
+    padding: 10px 15px;
+    width: 500px;
+    border-radius: 5px;
+    border: 1px solid indigo;
+    font-size: 18px;
+  }
+  .searchForm__input:focus,
+  .searchForm__input:hover {
+    border: 2px solid indigo;
+    outline: transparent;
+  }
+  
+  .searchForm__button {
+    display: inline-block;
+    margin-left: 20px;
+    width: 120px;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+    cursor: pointer;
+    background-color: indigo;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    outline: transparent;
+  }
+  .searchForm__input::placeholder {
+    font: inherit;
+    font-size: 18px;
+    color:grey;
+  }

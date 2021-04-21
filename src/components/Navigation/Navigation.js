@@ -1,6 +1,6 @@
-import routes from '../routes';
+import routes from '../../routes';
 import { NavLink } from 'react-router-dom';
-import '../styles.css';
+import '../Navigation/Navigation.scss';
 const Navigation = () => (
   <nav>
     <ul className="Navigation__list">

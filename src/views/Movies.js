@@ -1,8 +1,7 @@
 import { Component } from 'react';
 import moviesAPI from '../services/moviesAPI';
-import SearchForm from '../components/SearchForm';
-import MovieList from '../components/MovieList';
-
+import SearchForm from '../components/SearchForm/SearchForm';
+import MovieList from '../components/MovieList'
 class Movies extends Component {
   state = {
     

@@ -1,0 +1,34 @@
+.movieDetails {
+    padding: 15px 0;
+  }
+  .movieDetails__description {
+    display: flex;
+    width: 700px;
+  }
+  .movieDetails__description--img {
+    display: block;
+    margin-top: 20px;
+    margin-right: 15px;
+  }
+  .movieDetails__description--text {
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.71;
+  }
+  .movieDetails__description--text-genres {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .movieDetails__additional {
+    display: inline-block;
+    margin-right: 15px;
+    /* text-decoration: none; */
+    color: black;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .movieDetails__additional--active {
+    color: indigo;
+    text-decoration: none;
+  }

@@ -1,0 +1,18 @@
+.movieList {
+    list-style: none;
+  }
+  
+  .movieList__item  {
+   font-size: 20px;
+   padding: 5px 0;
+  }
+  .movieList__link{
+    cursor:pointer;
+    text-decoration:none;
+    color:black;
+  }
+  .movieList__link:hover, .movieList__link:focus {
+    text-decoration: underline;
+  color:indigo;
+  font-weight: 500;
+  }

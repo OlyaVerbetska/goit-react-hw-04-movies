@@ -1,6 +1,6 @@
 import { NavLink, withRouter } from 'react-router-dom';
-import routes from '../routes';
-import '../styles.css'
+import routes from '../../routes';
+import '../MovieList/MovieList.scss'
 
 const MovieList = ({movies, location}) =>
 ( <ul className = "movieList">

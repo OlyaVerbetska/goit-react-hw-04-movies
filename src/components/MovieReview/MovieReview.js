@@ -1,5 +1,9 @@
 import { Component } from 'react';
-import moviesAPI from '../services/moviesAPI';
+import moviesAPI from '../../services/moviesAPI';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import './MovieReview.scss'
 
 class MovieReview extends Component {
   state = {
@@ -34,4 +38,13 @@ class MovieReview extends Component {
     );
   }
 }
-export default MovieReview;
+MovieReview.propTypes = {
+  match: PropTypes.shape({
+      isExact: PropTypes.bool,
+      params: PropTypes.shape({ movieId: PropTypes.string }),
+      path: PropTypes.string,
+      url: PropTypes.string,
+  }),
+};
+
+export default withRouter (MovieReview);
